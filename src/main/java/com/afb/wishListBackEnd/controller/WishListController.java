@@ -1,6 +1,7 @@
 package com.afb.wishListBackEnd.controller;
 
 import com.afb.wishListBackEnd.domain.dto.WishList.CreateWishListResource;
+import com.afb.wishListBackEnd.domain.dto.WishList.GetAllWishListResource;
 import com.afb.wishListBackEnd.domain.dto.WishList.GetWishListResource;
 import com.afb.wishListBackEnd.domain.model.WishList;
 import com.afb.wishListBackEnd.service.WishListService;
@@ -29,6 +30,11 @@ public class WishListController {
         WishList wishList = wishListService.save(resource);
         URI uri = uriComponentsBuilder.path("/wishList/{id}").buildAndExpand(wishList.getId()).toUri();
         return ResponseEntity.created(uri).body(new CreateWishListResource(wishList));
+    }
+
+    @GetMapping()
+    public ResponseEntity<List<GetAllWishListResource>> getAllWishLists(){
+        return ResponseEntity.ok(wishListService.getAllWishListResourceList());
     }
 
     @GetMapping("/byUser/{userId}")

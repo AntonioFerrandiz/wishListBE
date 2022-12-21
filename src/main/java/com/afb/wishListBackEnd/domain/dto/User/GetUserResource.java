@@ -7,33 +7,34 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
-public class CreateUserResource {
+@AllArgsConstructor
+public class GetUserResource {
     private Long id;
 
     private String username;
 
-    private String password;
-
     private String profilePicture;
+
     private LocalDateTime dateCreated;
 
     private Boolean active;
 
-    public CreateUserResource(User user){
+    public GetUserResource(User user){
         this.id = user.getId();
         this.username = user.getUsername();
-        this.password = user.getPassword();
         this.profilePicture = user.getProfilePicture();
         this.dateCreated = user.getDateCreated();
         this.active = user.getActive();
     }
 
-    public User convert(){
-        return new User(username,password,profilePicture, dateCreated,active);
+    public static List<GetUserResource> convert(List<User> userList){
+        return userList.stream().map(GetUserResource::new).collect(Collectors.toList());
     }
+
 }

@@ -9,4 +9,7 @@ public class ResourceNotFoundException extends RuntimeException {
         super(String.format("%s con id %d no existe.", entity, id));
     }
 
+    public ResourceNotFoundException(String username) {
+        super(String.format("Username %s no existe.", username));
+    }
 }

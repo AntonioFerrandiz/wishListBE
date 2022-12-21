@@ -1,6 +1,7 @@
 package com.afb.wishListBackEnd.service;
 
 import com.afb.wishListBackEnd.domain.dto.WishList.CreateWishListResource;
+import com.afb.wishListBackEnd.domain.dto.WishList.GetAllWishListResource;
 import com.afb.wishListBackEnd.domain.dto.WishList.GetWishListResource;
 import com.afb.wishListBackEnd.domain.model.Product;
 import com.afb.wishListBackEnd.domain.model.User;
@@ -13,7 +14,6 @@ import com.afb.wishListBackEnd.shared.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -68,16 +68,16 @@ public class WishListService {
         }
         wishListRepository.deleteById(wishListId);
     }
-/*public void deletePatient(Long id){
-        Optional<Patient> optionalPatient = patientRepository.findById(id);
-        if(!optionalPatient.isPresent()){
-            throw new ResourceNotFoundException(ENTITY, id);
-        }
-        patientRepository.deleteById(id);
-    }*/
     public List<GetWishListResource> getWishListByUser(Long userId){
         List<WishList> wishLists;
         wishLists = wishListRepository.getWishListByUser_Id(userId);
         return GetWishListResource.convert(wishLists);
+    }
+
+
+    public List<GetAllWishListResource> getAllWishListResourceList(){
+        List<GetAllWishListResource> getAllWishListResources;
+        getAllWishListResources = wishListRepository.getAllWishListInDb();
+        return getAllWishListResources;
     }
 }

@@ -30,13 +30,15 @@ public class User{
 
     private String password;
 
+    private String profilePicture;
     private LocalDateTime dateCreated;
 
     private Boolean active;
 
-    public User(String username, String password, LocalDateTime dateCreated, Boolean active) {
+    public User(String username, String password, String profilePicture, LocalDateTime dateCreated, Boolean active) {
         this.username = username;
         this.password = password;
+        this.profilePicture = profilePicture;
         this.dateCreated = LocalDateTime.now();
         this.active = true;
     }

@@ -2,6 +2,7 @@ package com.afb.wishListBackEnd.controller;
 
 
 import com.afb.wishListBackEnd.domain.dto.User.CreateUserResource;
+import com.afb.wishListBackEnd.domain.dto.User.GetUserResource;
 import com.afb.wishListBackEnd.domain.model.User;
 import com.afb.wishListBackEnd.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,6 @@ public class UserController {
     private UserService userService;
 
     @PostMapping
-
     public ResponseEntity<CreateUserResource> save(@Valid
                                                    @RequestBody
                                                    CreateUserResource resource,
@@ -29,5 +29,10 @@ public class UserController {
         User user = userService.save(resource);
         URI uri = uriComponentsBuilder.path("/user/{id}").buildAndExpand(user.getId()).toUri();
         return ResponseEntity.created(uri).body(new CreateUserResource(user));
+    }
+
+    @GetMapping("searchByUsername/{username}")
+    public ResponseEntity<GetUserResource> searchUserByUsername(@PathVariable String username){
+        return ResponseEntity.ok(userService.searchUserByUsername(username));
     }
 }
