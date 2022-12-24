@@ -1,5 +1,6 @@
 package com.afb.wishListBackEnd.config.documentation;
 
+import com.afb.wishListBackEnd.domain.model.User;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.PathSelectors;
@@ -16,11 +17,21 @@ import java.util.List;
 @Configuration
 public class SwaggerConfig {
     @Bean
-    public Docket docappAPI(){
+    public Docket wishlistAPI(){
+        List<RequestParameter> requestParameterList = new ArrayList<RequestParameter>();
+        RequestParameter requestParameter = new RequestParameterBuilder()
+                .name("Authorization")
+                .required(false)
+                .description("Header para el token JWT")
+                .in(ParameterType.HEADER)
+                .build();
+        requestParameterList.add(requestParameter);
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.afb.wishListBackEnd"))
                 .paths(PathSelectors.any())
-                .build();
+                .build()
+                .ignoredParameterTypes(User.class)
+                .globalRequestParameters(requestParameterList);
     }
 }

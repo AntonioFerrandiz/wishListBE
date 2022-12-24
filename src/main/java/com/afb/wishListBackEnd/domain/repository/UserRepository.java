@@ -7,4 +7,6 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface UserRepository extends JpaRepository<User, Long> {
     GetUserResource searchUserByUsername(String username);
+
+    User findByUsername(String username);
 }
